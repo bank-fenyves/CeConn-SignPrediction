@@ -1,4 +1,8 @@
+library(readr)
 '%notin%' = Negate('%in%')
+
+data <- read_delim("~/data.csv", ";", escape_double = FALSE, trim_ws = TRUE)
+
 data_chem = subset(data, data$Type == "chemical")
 
 # connection based prediction for synapses
