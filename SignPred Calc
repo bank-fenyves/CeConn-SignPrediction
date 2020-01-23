@@ -1,0 +1,35 @@
+'%notin%' = Negate('%in%')
+data_chem = subset(data, data$Type == "chemical")
+
+# connection based prediction for synapses
+pos = sum(data_chem$Synapses[data_chem$Pred_pol == "+"])
+neg = sum(data_chem$Synapses[data_chem$Pred_pol == "-"])
+complex = sum(data_chem$Synapses[data_chem$Pred_pol == "complex"])
+unpredicted = sum(data_chem$Synapses[data_chem$Pred_pol == "no pred"])
+sum = sum(data_chem$Synapses)
+
+glu_pos = sum(data_chem$Synapses[data_chem$Pred_pol == "+" & data_chem$PrimNT == "Glu" & data_chem$SecNT == "0"])
+glu_neg = sum(data_chem$Synapses[data_chem$Pred_pol == "-" & data_chem$PrimNT == "Glu" & data_chem$SecNT == "0"])
+ach_pos = sum(data_chem$Synapses[data_chem$Pred_pol == "+" & data_chem$PrimNT == "ACh" & data_chem$SecNT == "0"])
+ach_neg = sum(data_chem$Synapses[data_chem$Pred_pol == "-" & data_chem$PrimNT == "ACh" & data_chem$SecNT == "0"])
+gaba_pos = sum(data_chem$Synapses[data_chem$Pred_pol == "+" & data_chem$PrimNT == "GABA" & data_chem$SecNT == "0"])
+gaba_neg = sum(data_chem$Synapses[data_chem$Pred_pol == "-" & data_chem$PrimNT == "GABA" & data_chem$SecNT == "0"])
+pos_multi = sum(data_chem$Synapses[data_chem$Pred_pol == "+"  & data_chem$SecNT != "0"])
+neg_multi = sum(data_chem$Synapses[data_chem$Pred_pol == "-" & data_chem$SecNT != "0"])
+
+# souce node NT based prediction
+old_pos = sum(data_chem$Synapses[data_chem$PrimNT  %in% c("Glu", "ACh") & data_chem$SecNT %notin% c("Glu", "ACh", "GABA")])
+old_neg = sum(data_chem$Synapses[data_chem$PrimNT  %in% c("GABA") & data_chem$SecNT %notin% c("Glu", "ACh", "GABA")])
+old_complex = sum(data_chem$Synapses[data_chem$SecNT %in% c("ACh", "GABA", "Glu")])
+old_unpredicted = sum(data_chem$Synapses[data_chem$PrimNT %notin% c("Glu", "ACh", "GABA")])
+old_sum = sum(data_chem$Synapses[data_chem$Type == "chemical"])
+
+## Error check
+# "Error check for connection-based prediction of synaptic polarities (0 = no error): "
+check1 = sum - (pos+neg+complex+unpredicted)
+# "Error check for connection-based prediction of synaptic polarities - by neurotransmitters (0 = no error): "
+check2 = sum - (glu_pos+glu_neg+ach_pos+ach_neg+gaba_pos+gaba_neg+pos_multi+neg_multi+complex+unpredicted)
+# "Error-check for NT-based prediction of synapses (0 = no error)
+check3 = old_sum - (old_pos + old_neg + old_complex + old_unpredicted)
+
+if (check1 == 0 & check2 == 0 & check3 == 0) print("No error was found in calculations.") else print(check1, check2, check3)
