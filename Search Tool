@@ -1,0 +1,12 @@
+# Search Tool. Need "data" and "data_chem" files. Run SignPred before.
+# Requires package "plyr".
+
+source <- readline(prompt="Enter source neuron name: ")
+target <- readline(prompt="Enter target neuron name: ")
+
+link = subset(data_chem, data_chem$Source == source & data_chem$Target == target)
+
+if (empty(link) != TRUE) {print("Your query: ")
+  print(link[,c(1,4,17, 2, 3)])
+  } else {print("No connection between the two neurons:", source, " - ", target, ".")
+  }
