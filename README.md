@@ -1,9 +1,8 @@
 # CeConn-SignPrediction
 This project "CeConn-SignPrediction" contains materials to the following paper:
 
-B. G. Fenyves, G. S. Szilágyi, Z. Vassy, C. Sőti, P. Csermely (2020) Synaptic polarity and sign-balance prediction using gene expression data in the Caenorhabditis elegans chemical synapse neuronal connectome network. PLoS Comp. Biol. in press
-https://doi.org/10.1101/2020.05.22.110312 
-https://biorxiv.org/cgi/content/short/2020.05.22.110312v1
+B. G. Fenyves, G. S. Szilágyi, Z. Vassy, C. Sőti, P. Csermely (2020) Synaptic polarity and sign-balance prediction using gene expression data in the Caenorhabditis elegans chemical synapse neuronal connectome network. PLOS Computational Biology 16(12): e1007974.
+https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007974
 
 Any correspondance can be addressed to f [dot] bank [dot] g [at] gmail.com
 
